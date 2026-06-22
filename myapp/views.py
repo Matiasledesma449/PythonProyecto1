@@ -1,14 +1,28 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Estudiante, Profesor, Curso, Entregable
+from django.shortcuts import render
+from .models import Cliente, Tecnico, Equipo, Reparacion
 
+
+# Create your views here.
 def index(request):
-    context = {"mensaje": "Bienvenidos a mi aplicación Django!"}
-    return render(request, "myapp/index.html", context)
+    context = {"mensaje":"Ofrecemos servicios de reparación de computadoras, mantenimiento y soporte técnico."}
+    return render(request,"myapp/index.html",context)
 
-def lista_estudiantes(request):
-    estudiantes = Estudiante.objects.all()
-    return render(request, 'myapp/estudiantes_list.html', {'estudiantes': estudiantes})
 
-def detalle_estudiante(request, pk):
-    estudiante = get_object_or_404(Estudiante, pk=pk)
-    return render(request, 'myapp/estudiante_detail.html', {'estudiante': estudiante})
+def clientes(request):
+    clientes = Cliente.objects.all()
+    return render(request, 'myapp/clientes.html', {'clientes': clientes})
+
+
+def equipos(request):
+    equipos = Equipo.objects.all()
+    return render(request, 'myapp/equipos.html', {'equipos': equipos})
+
+
+def tecnicos(request):
+    tecnicos = Tecnico.objects.all()
+    return render(request, 'myapp/tecnicos.html', {'tecnicos': tecnicos})
+
+
+def reparaciones(request):
+    reparaciones = Reparacion.objects.all()
+    return render(request, 'myapp/reparacion.html', {'reparaciones': reparaciones})
