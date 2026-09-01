@@ -1,17 +1,57 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
 header {
     background: linear-gradient(90deg, #250397, #1a0242);
     color: white;
-    padding: 10px;
-    text-align: center;
+    padding: 0;
 }
 
+.navbar {
+    padding: 0.5rem 1rem;
+}
+
+/* Botón hamburguesa visible */
+.navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
 
 footer {
     background: linear-gradient(90deg, #250397, #1a0242);
     color: white;
     text-align: center;
     padding: 10px;
-    position: fixed;
+    margin-top: 0;
     width: 100%;
-    bottom: 0;
 }
+
+.card-body {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* Estilos para card-footer */
+.card-footer {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0.75rem;
+    background-color: inherit;
+    border-top: 1px solid rgba(0,0,0,.125);
+}
+
+
+

@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
-{% block title %}Gestión de Tecnicos{% endblock %}
+{% block title %}Gestión de Reparaciones{% endblock %}
 {% block content %}
     <div class="container mt-4">
-    <h1>Gestión de Tecnicos</h1>
-    <p>Aquí puedes gestionar la información de tus tecnicos, incluyendo agregar nuevos tecnicos, editar detalles existentes y eliminar tecnicos que ya no sean necesarios.</p>
-    
-    <button type="button" class="btn btn-success mb-3 bi bi-plus-circle" id="btnAgregar">
-        <span class="ms-2">Agregar Técnico</span>
+    <h1>Gestión de Reparaciones</h1>
+    <p>Aquí puedes gestionar la información de tus reparaciones, incluyendo agregar nuevas reparaciones, editar detalles existentes y eliminar reparaciones que ya no sean necesarias.</p>
+   
+   <button type="button" class="btn btn-success mb-3 bi bi-plus-circle" id="btnAgregar">
+        <span class="ms-2">Agregar Reparación</span>
     </button>
 
     <div id="formAgregar" style="display:none;">
         <div class="card shadow-sm mb-5">
             <div class="card-body">
-                <h2 class="h4 mb-3">Agregar técnico</h2>
+                <h2 class="h4 mb-3">Agregar reparación</h2>
 
                 <form method="post">
                     {% csrf_token %}
@@ -20,7 +20,7 @@
                     {{ form.as_p }}
 
                     <button type="submit" class="btn btn-primary">
-                        Guardar técnico
+                        Guardar reparación
                     </button>
                 </form>
             </div>
@@ -28,37 +28,43 @@
     </div>
 
     <!-- Formulario de búsqueda -->
-<form method="get" action="{% url 'myapp:tecnicos' %}" class="mb-4">
+<form method="get" action="{% url 'myapp:reparaciones' %}" class="mb-4">
     <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Buscar por nombre, apellido o teléfono"
+        <input type="text" name="q" class="form-control" placeholder="Buscar por serial, técnico o estado"
                value="{{ query|default_if_none:'' }}">
         <button type="submit" class="btn btn-primary">
             <i class="bi bi-search"></i> Buscar
         </button>
     </div>
 </form>
-    
+   
     <div class="row">
-        {% for tecnico in tecnicos %}
+        {% for reparacion in reparaciones %}
         <div class="col-md-4 col-sm-6 mb-4">
             <div class="card shadow-sm h-100 bg-info-subtle text-info-emphasis">
                 <div class="card-body">
                     <h5 class="card-title text-primary">
-                        {{ tecnico.apellido }} {{ tecnico.nombre }}
+                        {{ reparacion.equipo }} - {{ reparacion.tecnico }}
                     </h5>
                     <p class="card-text mb-1">
-                        <strong>Telefono:</strong> {{ tecnico.telefono }}
+                        <strong>Problema reportado:</strong> {{ reparacion.problema_reportado }}
+                    </p>
+                    <p class="card-text  mb-1">
+                        <strong>Solución:</strong> {{ reparacion.solucion }}
+                    </p>
+                    <p class="card-text  mb-1">
+                        <strong>Costo:</strong> {{ reparacion.costo }}
                     </p>
                     <p class="card-text">
-                        <strong>Especialidad:</strong> {{ tecnico.especialidad }}
+                        <strong>Estado: </strong> {{ reparacion.estado }}
                     </p>
                 </div>
                 <div class="card-footer d-flex gap-2 justify-content-center">
-                    <a href="{% url 'myapp:editar_tecnico' tecnico.id %}" class="btn btn-warning btn-sm bi bi-pencil-square">
+                    <a href="{% url 'myapp:editar_reparacion' reparacion.id %}" class="btn btn-warning btn-sm bi bi-pencil-square">
                         <span class="ms-2">Editar</span>
                     </a>
-                    <form action="{% url 'myapp:eliminar_tecnico' tecnico.id %}" method="POST" style="display:inline;"
-                        onsubmit="return confirm('¿Seguro que deseas eliminar a {{ tecnico.nombre }} {{ tecnico.apellido }}?')">
+                    <form action="{% url 'myapp:eliminar_reparacion_nuevo' reparacion.id %}" method="POST" style="display:inline;"
+                        onsubmit="return confirm('¿Seguro que deseas eliminar esta reparación?')">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger btn-sm bi bi-trash3-fill">
                             <span class="ms-2">Eliminar</span>
@@ -68,7 +74,7 @@
             </div>
         </div>
         {% empty %}
-        <p class="text-muted text-center">No hay tecnicos registrados.</p>
+        <p class="text-muted text-center">No hay reparaciones registradas.</p>
         {% endfor %}
     </div>
     </div>
