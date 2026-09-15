@@ -1,16 +1,19 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Cliente, Tecnico, Equipo, Reparacion
 from .forms import ClienteForm, EquipoForm, TecnicoForm, ReparacionForm, ClientesFilter, EquipoFilter, TecnicoFilter, ReparacionFilter
 from django.db import models
 
 
 # Create your views here.
+@login_required
 def index(request):
     context = {"mensaje":"Ofrecemos servicios de reparación de computadoras, mantenimiento y soporte técnico."}
     return render(request,"myapp/index.html",context)
 
-     
 
+
+@login_required
 def clientes(request):
     query = request.GET.get('q')  # Captura lo que se escribe en el buscador
     
@@ -42,6 +45,7 @@ def clientes(request):
     )
 
 
+@login_required
 def equipos(request):
     query = request.GET.get('q')
     
@@ -75,6 +79,7 @@ def equipos(request):
     )
 
 
+@login_required
 def tecnicos(request):
     query = request.GET.get('q')
     
@@ -107,6 +112,7 @@ def tecnicos(request):
     )
 
 
+@login_required
 def reparaciones(request):
     query = request.GET.get('q')
     
@@ -137,6 +143,9 @@ def reparaciones(request):
             "query": query,
         },
     )
+
+
+@login_required
 def eliminar_reparacion(request, id):
     reparacion = get_object_or_404(Reparacion, id=id)
 
@@ -150,6 +159,7 @@ def eliminar_reparacion(request, id):
         {"reparacion": reparacion},
     )
 
+@login_required
 def editar_cliente(request, id):
     cliente = get_object_or_404(Cliente, id=id)
     
@@ -164,6 +174,7 @@ def editar_cliente(request, id):
     return render(request, 'myapp/editar_cliente.html', {'form': form, 'cliente': cliente})
 
 
+@login_required
 def eliminar_cliente(request, id):
     cliente = get_object_or_404(Cliente, id=id)
     
@@ -174,6 +185,7 @@ def eliminar_cliente(request, id):
     return render(request, 'myapp/clientes.html', {'cliente': cliente})
 
 
+@login_required
 def editar_equipo(request, id):
     equipo = get_object_or_404(Equipo, id=id)
     
@@ -188,6 +200,7 @@ def editar_equipo(request, id):
     return render(request, 'myapp/editar_equipo.html', {'form': form, 'equipo': equipo})
 
 
+@login_required
 def eliminar_equipo(request, id):
     equipo = get_object_or_404(Equipo, id=id)
     
@@ -198,6 +211,7 @@ def eliminar_equipo(request, id):
     return render(request, 'myapp/equipos.html', {'equipo': equipo})
 
 
+@login_required
 def editar_tecnico(request, id):
     tecnico = get_object_or_404(Tecnico, id=id)
     
@@ -212,6 +226,7 @@ def editar_tecnico(request, id):
     return render(request, 'myapp/editar_tecnico.html', {'form': form, 'tecnico': tecnico})
 
 
+@login_required
 def eliminar_tecnico(request, id):
     tecnico = get_object_or_404(Tecnico, id=id)
     
@@ -222,6 +237,7 @@ def eliminar_tecnico(request, id):
     return render(request, 'myapp/tecnicos.html', {'tecnico': tecnico})
 
 
+@login_required
 def editar_reparacion(request, id):
     reparacion = get_object_or_404(Reparacion, id=id)
     
@@ -236,6 +252,7 @@ def editar_reparacion(request, id):
     return render(request, 'myapp/editar_reparacion.html', {'form': form, 'reparacion': reparacion})
 
 
+@login_required
 def eliminar_reparacion_nuevo(request, id):
     reparacion = get_object_or_404(Reparacion, id=id)
     

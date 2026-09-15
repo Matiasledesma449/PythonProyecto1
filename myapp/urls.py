@@ -1,8 +1,8 @@
 from django.urls import path
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
-
 
 app_name = "myapp"
 urlpatterns = [
@@ -11,7 +11,7 @@ urlpatterns = [
     path('equipos/', views.equipos, name='equipos'),
     path('tecnicos/', views.tecnicos, name='tecnicos'),
     path('reparaciones/', views.reparaciones, name='reparaciones'),
-    path("reparaciones/<int:id>/eliminar/", views.eliminar_reparacion, name="eliminar_reparacion"),
+    path('reparaciones/<int:id>/eliminar/', views.eliminar_reparacion, name='eliminar_reparacion'),
     path('cliente/editar/<int:id>/', views.editar_cliente, name='editar_cliente'),
     path('cliente/eliminar/<int:id>/', views.eliminar_cliente, name='eliminar_cliente'),
     path('equipo/editar/<int:id>/', views.editar_equipo, name='editar_equipo'),
@@ -21,3 +21,7 @@ urlpatterns = [
     path('reparacion/editar/<int:id>/', views.editar_reparacion, name='editar_reparacion'),
     path('reparacion/eliminar/<int:id>/', views.eliminar_reparacion_nuevo, name='eliminar_reparacion_nuevo'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
